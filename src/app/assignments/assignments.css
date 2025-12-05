@@ -1,0 +1,49 @@
+.rendu {
+    color:lightgreen;
+    border:2px solid green;
+}
+
+.nonRendu {
+    color:lightcoral;
+    border:2px solid red;
+}
+
+.important {
+    font-weight: bold;
+}
+
+.form {
+   display:flex;
+   flex-direction: column;
+   margin:5px;
+}
+
+.toolbar-button {
+  margin-right: 20px;
+}
+
+.toolbar-h4 {
+  margin-right: 20px;
+}
+
+
+.mat-sidenav-container {
+  height: calc(205vh - 115vh);
+}
+
+.mat-sidenav {
+  width: 250px;
+  background-color: lightblue;
+}
+
+
+.container{  
+  display: flex;
+  flex-direction: column;
+}
+
+
+.ajout-btn {
+  align-self: flex-end;
+}
+

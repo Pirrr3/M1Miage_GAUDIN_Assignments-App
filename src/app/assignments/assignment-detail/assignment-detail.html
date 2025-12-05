@@ -1,0 +1,29 @@
+@if(assignmentTransmis) {
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>Détails de l'assignment</mat-card-title>
+            <mat-card-subtitle>Ajout d'images, ...</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Cette assignment a pour nom: {{assignmentTransmis.nom}}</p>
+            <p>et pour date de rendu: {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}</p>
+        </mat-card-content>
+
+        <mat-card-actions class="container">
+            @if(!assignmentTransmis.rendu) {
+            <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
+            }
+            <nav>
+                <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!authService.isAdmin()">Edit</button>
+            </nav>
+            <button mat-stroked-button color="warn" (click)="onSupprimer()" [disabled]="!authService.isAdmin()">Supprimer</button>
+        </mat-card-actions>
+
+        <!-- 
+        <mat-card-actions id="bottom">
+            <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Rendu</mat-checkbox>
+            <button mat-button color="warn" (click)="onSupprimer()">Supprimer</button>
+        </mat-card-actions>
+        -->
+    </mat-card>
+}

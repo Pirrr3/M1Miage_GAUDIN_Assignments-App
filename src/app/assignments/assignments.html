@@ -1,0 +1,116 @@
+
+<mat-toolbar>
+    <mat-toolbar-row>
+        <h4>M1 MIAGE</h4>
+        <button mat-button (click)="opened=!opened">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-button><mat-icon>home</mat-icon>Home</button>
+        <button mat-button><mat-icon>assignment</mat-icon>Assignments</button>
+        <button mat-button><mat-icon>account_circle </mat-icon>Contact</button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side" position="start">
+        <nav>
+            <ul style="list-style:none; padding:0; margin:0;">
+                <li><a href="#"><mat-icon>list</mat-icon> Liste des devoirs</a></li>
+                <li><a href="#"><mat-icon>add</mat-icon> Ajout d'un devoir</a></li>
+                <li><a href="#"><mat-icon>edit</mat-icon> Modification d'un devoir</a></li>
+                <li><a href="#"><mat-icon>delete</mat-icon> Suppression d'un devoir</a></li>
+                <li><a href="#"><mat-icon>build</mat-icon> Génération de données de test</a></li>
+            </ul>
+        </nav>
+        
+    </mat-sidenav>
+    <mat-sidenav-content style="padding: 16px;">
+
+<!--
+   @if(formVisible) {
+    <app-add-assignment (nouvelAssignment)="onNouvelAssignment($event)"></app-add-assignment>
+} @else {     
+-->
+
+    <div class="container">
+        @if(isAdmin()){
+        <div class="ajout-btn">
+            <nav>
+                <a routerLink="/add">
+                    <button mat-flat-button color="accent">
+                        Ajouter Assignment
+                    </button>
+                </a>
+            </nav>
+        </div>
+    }
+        <div class="peupler-btn">
+            <button mat-flat-button color="warn" (click)="peuplerBD()">
+                Peupler BD
+            </button>
+        </div>
+    </div>
+    
+
+    <h1>Liste des Assignments:</h1>
+
+    <mat-divider></mat-divider>
+    <mat-list>
+
+    @for(assignment of assignments; track assignment.id) {
+        <nav>
+            <a routerLink="/assignment/{{assignment.id}}">
+            <div [style.color]="assignment.rendu ? 'green' : 'red'"
+                [class.rendu]="assignment.rendu"
+                [class.nonRendu]="!assignment.rendu">
+                <h3 mat-subheader>{{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}</h3>
+
+                <mat-list-item (click)="assignmentClique(assignment)">
+                @if(assignment.rendu) {
+                <p appRendu>
+                    L'assignment "{{assignment.nom}}" !
+                </p>
+                } @else {
+                <p appNonRendu>
+                    A RENDRE : "{{assignment.nom}}" !
+                </p>
+                }
+                </mat-list-item>
+            </div>
+            </a>
+        </nav>
+    }
+    </mat-list>
+
+    <div class="pagination-controls">
+      <button mat-stroked-button (click)="premierePage()" [disabled]="page === 1">
+        Première Page
+      </button>
+    
+      <button mat-stroked-button (click)="pagePrecedente()" [disabled]="!hasPrevPage">
+        Page Précédente
+      </button>
+    
+      <span class="pagination-info">Page {{ page }} sur {{ totalPages }}</span>
+    
+      <button mat-stroked-button (click)="pageSuivante()" [disabled]="!hasNextPage">
+        Page Suivante
+      </button>
+    
+      <button mat-stroked-button (click)="dernierePage()" [disabled]="page === totalPages">
+        Dernière Page
+      </button>
+    </div>
+    <div class="pagination-total">
+      <span>Nombre total de devoirs: {{ totalDocs }}</span>
+    </div>
+
+<!-- 
+<h1>Detail d'un assignment</h1>
+<app-assignment-detail [assignmentTransmis]="assignmentSelectionne" (supprimerAssignment)="onSupprimerAssignment($event)">
+</app-assignment-detail>
+-->
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
